@@ -236,6 +236,72 @@ class SidebarContent extends Component {
               </Link>
             </li>
             <li>
+              <Link to="/#" className="has-arrow waves-effect">
+                <i className="ri-user-settings-line"></i>
+                <span className="ms-1">
+                  {this.props.t("List settings for step 1")}
+                </span>
+              </Link>
+              <ul className="sub-menu">
+                <li>
+                  <Link to="/room-type">{this.props.t("Room Type")}</Link>
+                </li>
+                <li>
+                  <Link to="/person-capacity">
+                    {this.props.t("Person Capacity")}
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/house-type">{this.props.t("House Type")}</Link>
+                </li>
+                <li>
+                  <Link to="/building-size">
+                    {this.props.t("Building Size")}
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/ecommerce-product-detail/1">
+                    {this.props.t("Bed Rooms")}
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/ecommerce-product-detail/1">
+                    {this.props.t("Beds")}
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/ecommerce-product-detail/1">
+                    {this.props.t("Bed Type")}
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/ecommerce-product-detail/1">
+                    {this.props.t("Bathrooms")}
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/ecommerce-product-detail/1">
+                    {this.props.t("Bathroom Type")}
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/ecommerce-product-detail/1">
+                    {this.props.t("Essential Amenities")}
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/ecommerce-product-detail/1">
+                    {this.props.t("Safety Amenities")}
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/ecommerce-product-detail/1">
+                    {this.props.t("Spaces")}
+                  </Link>
+                </li>
+              </ul>
+            </li>
+            <li>
               <Link to="/calendar" className=" waves-effect">
                 <i className="ri-calendar-2-line"></i>
                 <span className="ms-1">{this.props.t("Messages")}</span>

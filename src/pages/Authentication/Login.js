@@ -28,7 +28,8 @@ const Login = () => {
     try {
       const response = await loginUser(email, password);
       if (response && response.data.accessToken) {
-        localStorage.setItem("token", response.data.accessToken);
+        const accessToken = response.data.accessToken.replace("Bearer ", "");
+        localStorage.setItem("token", accessToken);
         navigate("/");
       } else {
         console.log("Login failed: No access token received.");
@@ -37,7 +38,7 @@ const Login = () => {
       console.error("Login error:", error);
     }
 
-    const response = await loginUser(email, password);
+    //const response = await loginUser(email, password);
   };
   /*
   useEffect(() => {

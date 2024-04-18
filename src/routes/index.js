@@ -98,112 +98,137 @@ import EditableTables from "../pages/Tables/EditableTables";
 import Login1 from "../pages/AuthenticationInner/Login";
 import Register1 from "../pages/AuthenticationInner/Register";
 import ForgetPwd1 from "../pages/AuthenticationInner/ForgetPassword";
+import RoomType from "../pages/RoomType/RoomType";
+import AddRoomType from "../pages/RoomType/AddRoomType";
+import PersonCapacity from "../pages/PersonCapacity/PersonCapacity";
+import AddPersonCapacity from "../pages/PersonCapacity/AddPersonCapacity";
+import HouseType from "../pages/HouseType/HouseType";
+import AddHouseType from "../pages/HouseType/AddHouseType";
+import RoomAmount from "../pages/RoomAmount/RoomAmount";
+import AddRoomAmount from "../pages/RoomAmount/AddRoomAmount";
 
 const authProtectedRoutes = [
+  // Tables
+  { path: "/basic-tables", component: <BasicTables /> },
+  { path: "/datatable-table", component: <DatatableTables /> },
+  { path: "/responsive-table", component: <ResponsiveTables /> },
+  { path: "/editable-table", component: <EditableTables /> },
 
-	// Tables
-	{ path: "/basic-tables", component: <BasicTables /> },
-	{ path: "/datatable-table", component: <DatatableTables /> },
-	{ path: "/responsive-table", component: <ResponsiveTables /> },
-	{ path: "/editable-table", component: <EditableTables /> },
+  // Ui
+  { path: "/ui-alerts", component: <UiAlert /> },
+  { path: "/ui-buttons", component: <UiButtons /> },
+  { path: "/ui-cards", component: <UiCards /> },
+  { path: "/ui-carousel", component: <UiCarousel /> },
+  { path: "/ui-dropdowns", component: <UiDropdown /> },
+  { path: "/ui-general", component: <UiGeneral /> },
+  { path: "/ui-grid", component: <UiGrid /> },
+  { path: "/ui-images", component: <UiImages /> },
+  { path: "/ui-lightbox", component: <UiLightbox /> },
+  { path: "/ui-modals", component: <UiModal /> },
+  // {path: "/ui-offcanvas", component: <UiDrawer/>},
+  { path: "/ui-progressbars", component: <UiProgressbar /> },
+  { path: "/ui-tabs-accordions", component: <UiTabsAccordions /> },
+  { path: "/ui-typography", component: <UiTypography /> },
+  { path: "/ui-video", component: <UiVideo /> },
+  { path: "/ui-session-timeout", component: <UiSessionTimeout /> },
+  { path: "/ui-rating", component: <UiRating /> },
+  { path: "/ui-rangeslider", component: <UiRangeSlider /> },
+  { path: "/ui-notifications", component: <UiNotifications /> },
+  { path: "/ui-roundslider", component: <UIRoundSlider /> },
 
-	// Ui
-	{ path: "/ui-alerts", component: <UiAlert /> },
-	{ path: "/ui-buttons", component: <UiButtons /> },
-	{ path: "/ui-cards", component: <UiCards /> },
-	{ path: "/ui-carousel", component: <UiCarousel /> },
-	{ path: "/ui-dropdowns", component: <UiDropdown /> },
-	{ path: "/ui-general", component: <UiGeneral /> },
-	{ path: "/ui-grid", component: <UiGrid /> },
-	{ path: "/ui-images", component: <UiImages /> },
-	{ path: "/ui-lightbox", component: <UiLightbox /> },
-	{ path: "/ui-modals", component: <UiModal /> },
-	// {path: "/ui-offcanvas", component: <UiDrawer/>},
-	{ path: "/ui-progressbars", component: <UiProgressbar /> },
-	{ path: "/ui-tabs-accordions", component: <UiTabsAccordions /> },
-	{ path: "/ui-typography", component: <UiTypography /> },
-	{ path: "/ui-video", component: <UiVideo /> },
-	{ path: "/ui-session-timeout", component: <UiSessionTimeout /> },
-	{ path: "/ui-rating", component: <UiRating /> },
-	{ path: "/ui-rangeslider", component: <UiRangeSlider /> },
-	{ path: "/ui-notifications", component: <UiNotifications /> },
-	{ path: "/ui-roundslider", component: <UIRoundSlider /> },
+  // Forms
+  { path: "/form-elements", component: <FormElements /> },
+  { path: "/form-advanced", component: <FormAdvanced /> },
+  { path: "/form-editors", component: <FormEditors /> },
+  { path: "/form-mask", component: <FormMask /> },
+  { path: "/form-file-upload", component: <FormUpload /> },
+  { path: "/form-wizard", component: <FormWizard /> },
+  { path: "/form-validation", component: <FormValidations /> },
+  { path: "/form-xeditable", component: <FormXeditable /> },
 
-	// Forms
-	{ path: "/form-elements", component: <FormElements /> },
-	{ path: "/form-advanced", component: <FormAdvanced /> },
-	{ path: "/form-editors", component: <FormEditors /> },
-	{ path: "/form-mask", component: <FormMask /> },
-	{ path: "/form-file-upload", component: <FormUpload /> },
-	{ path: "/form-wizard", component: <FormWizard /> },
-	{ path: "/form-validation", component: <FormValidations /> },
-	{ path: "/form-xeditable", component: <FormXeditable /> },
+  //Utility
+  { path: "/starter", component: <StarterPage /> },
+  { path: "/timeline", component: <Timeline /> },
+  { path: "/faqs", component: <FAQs /> },
+  { path: "/pricing", component: <Pricing /> },
 
-	//Utility
-	{ path: "/starter", component: <StarterPage /> },
-	{ path: "/timeline", component: <Timeline /> },
-	{ path: "/faqs", component: <FAQs /> },
-	{ path: "/pricing", component: <Pricing /> },
+  //Icons
+  { path: "/icons-remix", component: <RemixIcons /> },
+  { path: "/material-design", component: <MaterialDesign /> },
+  { path: "/dripicons", component: <DripiIcons /> },
+  { path: "/font-awesome-5", component: <FontAwesome /> },
 
-	//Icons
-	{ path: "/icons-remix", component: <RemixIcons /> },
-	{ path: "/material-design", component: <MaterialDesign /> },
-	{ path: "/dripicons", component: <DripiIcons /> },
-	{ path: "/font-awesome-5", component: <FontAwesome /> },
+  // Maps
+  { path: "/google-maps", component: <MapsGoogle /> },
+  { path: "/vector-maps", component: <MapsVector /> },
 
-	// Maps
-	{ path: "/google-maps", component: <MapsGoogle /> },
-	{ path: "/vector-maps", component: <MapsVector /> },
+  //Charts
+  { path: "/apex-charts", component: <ChartApex /> },
+  { path: "/chartjs", component: <ChartjsChart /> },
+  { path: "/charts-sparkline", component: <SparklineChart /> },
+  { path: "/charts-knob", component: <ChartsKnob /> },
 
-	//Charts
-	{ path: "/apex-charts", component: <ChartApex /> },
-	{ path: "/chartjs", component: <ChartjsChart /> },
-	{ path: "/charts-sparkline", component: <SparklineChart /> },
-	{ path: "/charts-knob", component: <ChartsKnob /> },
+  //Email
+  { path: "/email-inbox", component: <EmailInbox /> },
+  { path: "/email-read", component: <EmailRead /> },
 
-	//Email
-	{ path: "/email-inbox", component: <EmailInbox /> },
-	{ path: "/email-read", component: <EmailRead /> },
+  //Ecommerce
 
-	//Ecommerce
+  { path: "/ecommerce-products", component: <EcommerceProducts /> },
+  {
+    path: "/ecommerce-product-detail/:id",
+    component: <EcommerceProductDetail />,
+  },
+  { path: "/ecommerce-orders", component: <EcommerceOrders /> },
+  { path: "/ecommerce-customers", component: <EcommerceCustomers /> },
+  { path: "/ecommerce-cart", component: <EcommerceCart /> },
+  { path: "/ecommerce-checkout", component: <EcommerceCheckout /> },
+  { path: "/ecommerce-shops", component: <EcommerceShops /> },
+  { path: "/ecommerce-add-product", component: <EcommerceAddProduct /> },
 
-	{ path: "/ecommerce-products", component: <EcommerceProducts /> },
-	{ path: "/ecommerce-product-detail/:id", component: <EcommerceProductDetail /> },
-	{ path: "/ecommerce-orders", component: <EcommerceOrders /> },
-	{ path: "/ecommerce-customers", component: <EcommerceCustomers /> },
-	{ path: "/ecommerce-cart", component: <EcommerceCart /> },
-	{ path: "/ecommerce-checkout", component: <EcommerceCheckout /> },
-	{ path: "/ecommerce-shops", component: <EcommerceShops /> },
-	{ path: "/ecommerce-add-product", component: <EcommerceAddProduct /> },
+  //chat
+  { path: "/chat", component: <Chat /> },
 
-	//chat
-	{ path: "/chat", component: <Chat /> },
+  //calendar
+  { path: "/calendar", component: <Calendar /> },
 
-	//calendar
-	{ path: "/calendar", component: <Calendar /> },
+  { path: "/dashboard", component: <Dashboard /> },
 
-	{ path: "/dashboard", component: <Dashboard /> },
-
-	// this route should be at the end of all other routes
-	{ path: "/", exact: true, component: <Navigate to="/dashboard" /> },
+  // this route should be at the end of all other routes
+  { path: "/", exact: true, component: <Navigate to="/dashboard" /> },
 ];
 
 const publicRoutes = [
-	{ path: "/logout", component: <Logout /> },
-	{ path: "/login", component: <Login /> },
-	{ path: "/forgot-password", component: <ForgetPwd /> },
-	{ path: "/register", component: <Register /> },
-	{ path: "/lock-screen", component: <AuthLockScreen /> },
+  { path: "/logout", component: <Logout /> },
+  // Room Type
+  { path: "/room-type", component: <RoomType /> },
+  { path: "/room-type/add", component: <AddRoomType /> },
+  // Person Capacity
+  { path: "/person-capacity", component: <PersonCapacity /> },
+  { path: "/person-capacity/add", component: <AddPersonCapacity /> },
+  // house type
+  { path: "/house-type", component: <HouseType /> },
+  { path: "/house-type/add", component: <AddHouseType /> },
 
-	// Authentication Inner
-	{ path: "/auth-login", component: <Login1 /> },
-	{ path: "/auth-register", component: <Register1 /> },
-	{ path: "/auth-recoverpw", component: <ForgetPwd1 /> },
+  // Room Amount
+  { path: "/building-size", component: <RoomAmount /> },
+  { path: "/building-size/add", component: <AddRoomAmount /> },
 
-	{ path: "/maintenance", component: <Maintenance /> },
-	{ path: "/comingsoon", component: <CommingSoon /> },
-	{ path: "/404", component: <Error404 /> },
-	{ path: "/500", component: <Error500 /> },
+  { path: "/login", component: <Login /> },
+  { path: "/forgot-password", component: <ForgetPwd /> },
+  { path: "/register", component: <Register /> },
+  { path: "/lock-screen", component: <AuthLockScreen /> },
+
+  // Authentication Inner
+  { path: "/auth-login", component: <Login1 /> },
+  { path: "/auth-register", component: <Register1 /> },
+  { path: "/auth-recoverpw", component: <ForgetPwd1 /> },
+
+  { path: "/maintenance", component: <Maintenance /> },
+  { path: "/comingsoon", component: <CommingSoon /> },
+  { path: "/404", component: <Error404 /> },
+  { path: "/500", component: <Error500 /> },
+  { path: "*", component: <Error404 /> },
 ];
 
 export { authProtectedRoutes, publicRoutes };
