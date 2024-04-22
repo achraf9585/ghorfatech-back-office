@@ -1,10 +1,9 @@
 import axios from "axios";
 
 axios.defaults.baseURL = "https://ghorfatech-backend.vercel.app/api/admin";
-
-export const FetchPersonCapacity = async () => {
+export const FetchBedroom = async () => {
   try {
-    const response = await axios.get("/personCapacity/fetch", {
+    const response = await axios.get("/bedroomCapacity/fetch", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -16,7 +15,7 @@ export const FetchPersonCapacity = async () => {
   }
 };
 
-export const UpdatePersonCapacity = async (
+export const UpdateBedroom = async (
   itemName,
   otherItemName,
   startValue,
@@ -25,7 +24,7 @@ export const UpdatePersonCapacity = async (
   try {
     const token = localStorage.getItem("token"); // Retrieve the token from localStorage
     const response = await axios.put(
-      "/personCapacity/update",
+      "/bedroomCapacity/update",
       {
         data: {
           itemName,

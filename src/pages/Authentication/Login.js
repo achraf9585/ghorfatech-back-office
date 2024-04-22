@@ -13,8 +13,8 @@ import { Link, useNavigate } from "react-router-dom";
 //import { checkLogin, apiError } from "../../store/actions";
 
 // import images
-import logodark from "../../assets/images/logo-dark.png";
-import logolight from "../../assets/images/logo-light.png";
+import logodark from "../../assets/images/logo_ghorfatech_vertical.png";
+import logolight from "../../assets/images/logo_ghorfatech_vertical.png";
 //import withRouter from "../../components/Common/withRouter";
 import { loginUser } from "../../apis/Auth";
 
@@ -67,7 +67,7 @@ const Login = () => {
                               <img
                                 src={logodark}
                                 alt=""
-                                height="20"
+                                style={{ width: "100%", height: "100%" }}
                                 className="auth-logo logo-dark mx-auto"
                               />
                               <img
@@ -163,9 +163,9 @@ const Login = () => {
                             </Link>{" "}
                           </p>
                           <p>
-                            © 2021 Nazox. Crafted with{" "}
+                            © 2024 Nazox. Crafted with{" "}
                             <i className="mdi mdi-heart text-danger"></i> by
-                            Themesdesign
+                            Achrane
                           </p>
                         </div>
                       </div>

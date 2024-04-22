@@ -8,13 +8,9 @@ import Header from "../../components/VerticalLayout/index";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
+import { FetchBeds, UpdateBed } from "../../apis/Bed";
 
-import {
-  FetchPersonCapacity,
-  UpdatePersonCapacity,
-} from "../../apis/PersonCapacity";
-
-const PersonCapacity = () => {
+const Bed = () => {
   const [updateData, setUpdateData] = useState({
     itemName: "",
     otherItemName: "",
@@ -25,22 +21,21 @@ const PersonCapacity = () => {
 
   const breadcrumbItems = [
     { title: "Dashboard", link: "/" },
-    { title: "Person Capacity", link: "#" },
+    { title: "Bed", link: "#" },
   ];
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await FetchPersonCapacity();
-        console.log("data", data.personCapacity);
+        const data = await FetchBeds();
+        console.log("data", data.bed);
         if (data) {
           setUpdateData({
-            itemName: data.personCapacity.itemName,
-            otherItemName: data.personCapacity.otherItemName,
-            startValue: data.personCapacity.startValue,
-            endValue: data.personCapacity.endValue,
+            itemName: data.bed.itemName,
+            otherItemName: data.bed.otherItemName,
+            startValue: data.bed.startValue,
+            endValue: data.bed.endValue,
           });
-          console.log("hi");
         }
       } catch (error) {
         toast.error("Failed to fetch data");
@@ -50,21 +45,22 @@ const PersonCapacity = () => {
 
     fetchData();
   }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const { itemName, otherItemName, startValue, endValue } = updateData;
-    const response = await UpdatePersonCapacity(
+
+    const response = await UpdateBed(
       itemName,
       otherItemName,
       startValue,
       endValue
     );
     if (response) {
-      toast.success("Person Capacity Updated Successfully");
-      navigate("/person-capacity");
+      toast.success("Bed Created Successfully");
+      navigate("/bed");
     } else {
-      toast.error("Person Capacity Creation Failed");
+      toast.error("Bed Creation Failed");
     }
   };
   return (
@@ -82,10 +78,10 @@ const PersonCapacity = () => {
                     name="itemName"
                     label="Bed Name"
                     placeholder="Type Something"
-                    value={updateData.itemName}
                     type="text"
                     errorMessage="Enter Name"
                     validate={{ required: { value: true } }}
+                    value={updateData.itemName}
                     onChange={(e) =>
                       setUpdateData({
                         ...updateData,
@@ -102,8 +98,8 @@ const PersonCapacity = () => {
                     placeholder="Type Something"
                     type="text"
                     errorMessage="Enter Name"
-                    value={updateData.otherItemName}
                     validate={{ required: { value: true } }}
+                    value={updateData.otherItemName}
                     onChange={(e) =>
                       setUpdateData({
                         ...updateData,
@@ -168,4 +164,4 @@ const PersonCapacity = () => {
   );
 };
 
-export default PersonCapacity;
+export default Bed;

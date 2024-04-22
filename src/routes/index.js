@@ -100,12 +100,18 @@ import Register1 from "../pages/AuthenticationInner/Register";
 import ForgetPwd1 from "../pages/AuthenticationInner/ForgetPassword";
 import RoomType from "../pages/RoomType/RoomType";
 import AddRoomType from "../pages/RoomType/AddRoomType";
-import PersonCapacity from "../pages/PersonCapacity/PersonCapacity";
-import AddPersonCapacity from "../pages/PersonCapacity/AddPersonCapacity";
 import HouseType from "../pages/HouseType/HouseType";
 import AddHouseType from "../pages/HouseType/AddHouseType";
 import RoomAmount from "../pages/RoomAmount/RoomAmount";
 import AddRoomAmount from "../pages/RoomAmount/AddRoomAmount";
+import BedType from "../pages/BedType/BedType";
+import AddBedType from "../pages/BedType/AddBedType";
+import PersonCapacity from "../pages/PersonCapacity/PersonCapacity";
+import Bed from "../pages/Bed/Bed";
+import Bathroom from "../pages/Bathroom/Bathroom";
+import BathroomType from "../pages/BathroomType/BathroomType";
+import AddBathroomType from "../pages/BathroomType/AddBathroomType";
+import BedRoom from "../pages/Bedroom/Bedroom";
 
 const authProtectedRoutes = [
   // Tables
@@ -205,7 +211,7 @@ const publicRoutes = [
   { path: "/room-type/add", component: <AddRoomType /> },
   // Person Capacity
   { path: "/person-capacity", component: <PersonCapacity /> },
-  { path: "/person-capacity/add", component: <AddPersonCapacity /> },
+
   // house type
   { path: "/house-type", component: <HouseType /> },
   { path: "/house-type/add", component: <AddHouseType /> },
@@ -213,6 +219,22 @@ const publicRoutes = [
   // Room Amount
   { path: "/building-size", component: <RoomAmount /> },
   { path: "/building-size/add", component: <AddRoomAmount /> },
+
+  // Bed
+  { path: "/bed", component: <Bed /> },
+  // Bed type
+  { path: "/bed-type", component: <BedType /> },
+  { path: "/bed-type/add", component: <AddBedType /> },
+
+  // bedroom
+  { path: "/bedroom", component: <BedRoom /> },
+
+  // bathroom
+  { path: "/bathroom", component: <Bathroom /> },
+
+  // bathroom type
+  { path: "/bathroom-type", component: <BathroomType /> },
+  { path: "/bathroom-type/add", component: <AddBathroomType /> },
 
   { path: "/login", component: <Login /> },
   { path: "/forgot-password", component: <ForgetPwd /> },

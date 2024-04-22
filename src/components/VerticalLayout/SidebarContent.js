@@ -260,27 +260,19 @@ class SidebarContent extends Component {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/ecommerce-product-detail/1">
-                    {this.props.t("Bed Rooms")}
-                  </Link>
+                  <Link to="/bedroom">{this.props.t("Bed Rooms")}</Link>
                 </li>
                 <li>
-                  <Link to="/ecommerce-product-detail/1">
-                    {this.props.t("Beds")}
-                  </Link>
+                  <Link to="/bed">{this.props.t("Beds")}</Link>
                 </li>
                 <li>
-                  <Link to="/ecommerce-product-detail/1">
-                    {this.props.t("Bed Type")}
-                  </Link>
+                  <Link to="/bed-type">{this.props.t("Bed Type")}</Link>
                 </li>
                 <li>
-                  <Link to="/ecommerce-product-detail/1">
-                    {this.props.t("Bathrooms")}
-                  </Link>
+                  <Link to="/bathroom">{this.props.t("Bathrooms")}</Link>
                 </li>
                 <li>
-                  <Link to="/ecommerce-product-detail/1">
+                  <Link to="/bathroom-type">
                     {this.props.t("Bathroom Type")}
                   </Link>
                 </li>
