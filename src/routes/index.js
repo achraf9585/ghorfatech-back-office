@@ -112,6 +112,12 @@ import Bathroom from "../pages/Bathroom/Bathroom";
 import BathroomType from "../pages/BathroomType/BathroomType";
 import AddBathroomType from "../pages/BathroomType/AddBathroomType";
 import BedRoom from "../pages/Bedroom/Bedroom";
+import Safety from "../pages/Safety/Safety";
+import AddSafety from "../pages/Safety/AddSafety";
+import Space from "../pages/Space/Space";
+import AddSpace from "../pages/Space/AddSpace";
+import User from "../pages/User/User";
+import SiteSettings from "../pages/Site/SiteSettings";
 
 const authProtectedRoutes = [
   // Tables
@@ -235,6 +241,21 @@ const publicRoutes = [
   // bathroom type
   { path: "/bathroom-type", component: <BathroomType /> },
   { path: "/bathroom-type/add", component: <AddBathroomType /> },
+
+  // safety
+
+  { path: "/safety", component: <Safety /> },
+  { path: "/safety/add", component: <AddSafety /> },
+
+  // Space
+  { path: "/space", component: <Space /> },
+  { path: "/space/add", component: <AddSpace /> },
+
+  //users
+  { path: "/user", component: <User /> },
+
+  // site
+  { path: "/site-settings", component: <SiteSettings /> },
 
   { path: "/login", component: <Login /> },
   { path: "/forgot-password", component: <ForgetPwd /> },

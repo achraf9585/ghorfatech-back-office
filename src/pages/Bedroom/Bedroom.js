@@ -69,7 +69,7 @@ const BedRoom = () => {
       <div className="page-content">
         <Container>
           <Breadcrumbs title="Add bedroom" breadcrumbItems={breadcrumbItems} />
-          <Card>
+          <Card style={{ marginLeft: "150px" }}>
             <CardBody>
               <h4 className="card-title">Add Bed</h4>
               <AvForm onValidSubmit={handleSubmit}>

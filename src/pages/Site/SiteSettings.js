@@ -22,21 +22,21 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { AvField, AvForm } from "availity-reactstrap-validation";
 import {
-  DeleteBathroomType,
-  FetchBathroomTypes,
-  UpdateBathroomType,
-} from "../../apis/BathroomType";
+  DeleteSiteSetting,
+  FetchSiteSettings,
+  UpdateSiteSetting,
+} from "../../apis/SiteSettings";
 
-const BathroomType = () => {
-  const [BathroomTypes, setBathroomTypes] = useState([]);
+const SiteSettings = () => {
+  const [siteSettings, setSiteSettings] = useState([]);
   const [updateData, setUpdateData] = useState({
-    bathroomTypeId: "",
-    itemName: "",
-
-    isChecked: true,
+    siteSettingId: "",
+    title: "",
+    name: "",
+    value: "",
   });
   const [deleteData, setDeleteData] = useState({
-    bathroomTypeId: "",
+    siteSettingId: "",
   });
   const [modal_standard, setModal_standard] = useState(false);
   const [modal_static, setModal_static] = useState(false);
@@ -45,59 +45,64 @@ const BathroomType = () => {
   const tog_static = () => setModal_static(!modal_static);
   const navigate = useNavigate();
 
-  const fetchBathroomTypes = async () => {
-    const response = await FetchBathroomTypes(); // Assuming FetchHouseTypes is the correct function from your API
-    setBathroomTypes(response.bathroomTypes);
+  const fetchSiteSettings = async () => {
+    const response = await FetchSiteSettings();
+    setSiteSettings(response.siteSettings);
   };
   useEffect(() => {
-    fetchBathroomTypes();
+    fetchSiteSettings();
   }, []);
 
   const handleUpdate = async () => {
-    const { bathroomTypeId, itemName, isChecked } = updateData;
-    const updatedBathroomType = await UpdateBathroomType(
-      bathroomTypeId,
-      itemName,
-      isChecked
+    const { siteSettingId, title, name, value } = updateData;
+    const updatedSiteSetting = await UpdateSiteSetting(
+      siteSettingId,
+      title,
+      name,
+      value
     );
-    if (updatedBathroomType) {
-      toast.success("Bathroom Type Updated Successfully");
-      navigate("/bathroom-type");
+    if (updatedSiteSetting) {
+      toast.success("Site setting Updated Successfully");
+      navigate("/site-settings");
       setModal_standard(false);
-      fetchBathroomTypes();
-      navigate("/bathroom-type");
+      fetchSiteSettings();
+      navigate("/site-settings");
     } else {
-      toast.error("Bathroom Type Update Failed");
+      toast.error("site setting Update Failed");
     }
   };
 
   const handleDelete = async () => {
-    const { bathroomTypeId } = deleteData;
+    const { siteSettingId } = deleteData;
 
-    const response = await DeleteBathroomType(bathroomTypeId);
+    const response = await DeleteSiteSetting(siteSettingId);
 
     if (response) {
-      toast.success("Bathroom Type Deleted Successfully");
+      toast.success("site setting Deleted Successfully");
       setModal_static(false);
-      fetchBathroomTypes();
-      navigate("/bathroom-type");
+      fetchSiteSettings();
+      navigate("/safety");
     } else {
-      toast.error("Bathroom Type Deletion Failed");
+      toast.error("House Type Deletion Failed");
     }
   };
 
   const columns = useMemo(
     () => [
       {
-        Header: "Item Name",
-        accessor: "itemName",
+        Header: "Title",
+        accessor: "title",
+      },
+      {
+        Header: " Name",
+        accessor: "name",
       },
 
       {
-        Header: "Status",
-        accessor: "status",
-        Cell: ({ value }) => (value ? "Active" : "Inactive"),
+        Header: " Value",
+        accessor: "value",
       },
+
       {
         Header: "Created At",
         accessor: "createdAt",
@@ -130,24 +135,26 @@ const BathroomType = () => {
     []
   );
 
-  const handleEditClick = (bathroomType) => {
+  const handleEditClick = (siteSetting) => {
     setUpdateData({
-      bathroomTypeId: bathroomType._id,
-      itemName: bathroomType.itemName,
-      isChecked: bathroomType.status,
+      siteSettingId: siteSetting._id,
+      title: siteSetting.title,
+      name: siteSetting.name,
+      value: siteSetting.value,
     });
     tog_standard(); // Open the modal
   };
 
-  const handleDeleteClick = (bathroomType) => {
+  const handleDeleteClick = (siteSetting) => {
     setDeleteData({
-      bathroomTypeId: bathroomType._id,
+      siteSettingId: siteSetting._id,
     });
     tog_static(); // Open the modal
   };
+
   const breadcrumbItems = [
     { title: "Dashboard", link: "/" },
-    { title: "Bathroom Type", link: "#" },
+    { title: "Site settings", link: "#" },
   ];
 
   return (
@@ -168,14 +175,14 @@ const BathroomType = () => {
                 <Button
                   color="success"
                   className="waves-effect waves-light me-1"
-                  onClick={() => navigate("/bathroom-type/add")}
+                  onClick={() => navigate("/site-settings/add")}
                 >
-                  Add Bathroom type
+                  Add Site Setting
                 </Button>
               </div>
               <TableContainer
                 columns={columns || []}
-                data={BathroomTypes || []}
+                data={siteSettings || []}
                 isPagination={false}
                 // isGlobalFilter={false}
                 iscustomPageSize={false}
@@ -194,48 +201,56 @@ const BathroomType = () => {
               <AvForm onValidSubmit={handleUpdate}>
                 <div className="mb-3">
                   <AvField
-                    name="itemName"
-                    label="Bathroom Type Name"
+                    name="title"
+                    label="Site setting Name"
                     placeholder="Type Something"
                     type="text"
                     errorMessage="Enter Name"
-                    value={updateData.itemName}
+                    value={updateData.title}
                     validate={{ required: { value: true } }}
                     onChange={(e) =>
                       setUpdateData({
                         ...updateData,
-                        itemName: e.target.value,
+                        title: e.target.value,
                       })
                     }
                   />
                 </div>
 
-                <div className="form-check form-switch mb-3" dir="ltr">
-                  <h4 className="card-title">Status</h4>
-
-                  <Input
-                    type="checkbox"
-                    className="form-check-input"
-                    checked={updateData.isChecked}
-                    onChange={() =>
+                <div className="mb-3">
+                  <AvField
+                    name="name"
+                    label="Site setting Name"
+                    placeholder="Type Something"
+                    type="text"
+                    errorMessage="Enter Name"
+                    value={updateData.name}
+                    validate={{ required: { value: true } }}
+                    onChange={(e) =>
                       setUpdateData({
                         ...updateData,
-                        isChecked: !updateData.isChecked,
+                        name: e.target.value,
                       })
                     }
-                    id="customSwitch1"
-                    defaultChecked
                   />
+                </div>
 
-                  <Label
-                    className="form-check-label"
-                    htmlFor="customSwitch1"
-                    onClick={(e) => {
-                      this.setState({ toggleSwitch: !this.state.toggleSwitch });
-                    }}
-                  >
-                    {updateData.isChecked ? "Active" : "Inactive"}
-                  </Label>
+                <div className="mb-3">
+                  <AvField
+                    name="value"
+                    label="Site setting Name"
+                    placeholder="Type Something"
+                    type="text"
+                    errorMessage="Enter value"
+                    value={updateData.name}
+                    validate={{ required: { value: true } }}
+                    onChange={(e) =>
+                      setUpdateData({
+                        ...updateData,
+                        value: e.target.value,
+                      })
+                    }
+                  />
                 </div>
               </AvForm>
             </ModalBody>
@@ -267,7 +282,7 @@ const BathroomType = () => {
               Static Backdrop
             </ModalHeader>
             <ModalBody>
-              <p>Are you sure you want to delete this Bathroom type?</p>
+              <p>Are you sure you want to delete this space?</p>
               <ModalFooter>
                 <Button type="button" color="light" onClick={tog_static}>
                   Close
@@ -286,4 +301,4 @@ const BathroomType = () => {
   );
 };
 
-export default BathroomType;
+export default SiteSettings;

@@ -13,32 +13,30 @@ import { AvForm, AvField } from "availity-reactstrap-validation";
 import Breadcrumbs from "../../components/Common/Breadcrumb";
 import Footer from "../../components/VerticalLayout/Footer";
 import Header from "../../components/VerticalLayout/index";
-import { CreateRoomType } from "../../apis/RoomType";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import { CreateHouseType } from "../../apis/HouseType";
-import { CreateBedType } from "../../apis/BedType";
+import { CreateSpace } from "../../apis/Space";
 
-const AddBedType = () => {
+const AddSafety = () => {
   const [isChecked, setIsChecked] = useState(true);
-  const [bedTypeName, setBedTypeName] = useState("");
+  const [spaceName, setSpaceName] = useState("");
   const navigate = useNavigate();
 
   const breadcrumbItems = [
-    { title: "Tables", link: "/" },
-    { title: "Data Tables", link: "#" },
+    { title: "Dashboard", link: "/" },
+    { title: "Space", link: "#" },
   ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await CreateBedType(bedTypeName, isChecked);
+    const response = await CreateSpace(spaceName, isChecked);
     if (response) {
-      toast.success("Bed Type Created Successfully");
-      navigate("/bed-type");
+      toast.success("Space Created Successfully");
+      navigate("/space");
     } else {
-      toast.error("Bed Type Creation Failed");
+      toast.error("space Creation Failed");
     }
   };
   return (
@@ -46,20 +44,20 @@ const AddBedType = () => {
       <Header />
       <div className="page-content">
         <Container>
-          <Breadcrumbs title="Add Bed Type" breadcrumbItems={breadcrumbItems} />
-          <Card style={{ marginLeft: "150px" }}>
+          <Breadcrumbs title="Add space" breadcrumbItems={breadcrumbItems} />
+          <Card>
             <CardBody>
-              <h4 className="card-title">Add Bed Type</h4>
+              <h4 className="card-title">Add space</h4>
               <AvForm onValidSubmit={handleSubmit}>
                 <div className="mb-3">
                   <AvField
                     name="itemName"
-                    label="Bed Type Name"
+                    label="space Name"
                     placeholder="Type Something"
                     type="text"
                     errorMessage="Enter Name"
                     validate={{ required: { value: true } }}
-                    onChange={(e) => setBedTypeName(e.target.value)}
+                    onChange={(e) => setSpaceName(e.target.value)}
                   />
                 </div>
 
@@ -106,4 +104,4 @@ const AddBedType = () => {
   );
 };
 
-export default AddBedType;
+export default AddSafety;

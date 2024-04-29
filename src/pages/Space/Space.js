@@ -21,22 +21,18 @@ import { Button } from "reactstrap";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { AvField, AvForm } from "availity-reactstrap-validation";
-import {
-  DeleteBathroomType,
-  FetchBathroomTypes,
-  UpdateBathroomType,
-} from "../../apis/BathroomType";
+import { DeleteSpace, FetchSpaces, UpdateSpace } from "../../apis/Space";
 
-const BathroomType = () => {
-  const [BathroomTypes, setBathroomTypes] = useState([]);
+const Space = () => {
+  const [spaces, setSpaces] = useState([]);
   const [updateData, setUpdateData] = useState({
-    bathroomTypeId: "",
+    spaceId: "",
     itemName: "",
 
     isChecked: true,
   });
   const [deleteData, setDeleteData] = useState({
-    bathroomTypeId: "",
+    spaceId: "",
   });
   const [modal_standard, setModal_standard] = useState(false);
   const [modal_static, setModal_static] = useState(false);
@@ -45,44 +41,40 @@ const BathroomType = () => {
   const tog_static = () => setModal_static(!modal_static);
   const navigate = useNavigate();
 
-  const fetchBathroomTypes = async () => {
-    const response = await FetchBathroomTypes(); // Assuming FetchHouseTypes is the correct function from your API
-    setBathroomTypes(response.bathroomTypes);
+  const fetchSpaces = async () => {
+    const response = await FetchSpaces();
+    setSpaces(response.spaces);
   };
   useEffect(() => {
-    fetchBathroomTypes();
+    fetchSpaces();
   }, []);
 
   const handleUpdate = async () => {
-    const { bathroomTypeId, itemName, isChecked } = updateData;
-    const updatedBathroomType = await UpdateBathroomType(
-      bathroomTypeId,
-      itemName,
-      isChecked
-    );
-    if (updatedBathroomType) {
-      toast.success("Bathroom Type Updated Successfully");
-      navigate("/bathroom-type");
+    const { spaceId, itemName, isChecked } = updateData;
+    const updatedSpace = await UpdateSpace(spaceId, itemName, isChecked);
+    if (updatedSpace) {
+      toast.success("space Updated Successfully");
+      navigate("/space");
       setModal_standard(false);
-      fetchBathroomTypes();
-      navigate("/bathroom-type");
+      fetchSpaces();
+      navigate("/space");
     } else {
-      toast.error("Bathroom Type Update Failed");
+      toast.error("space Update Failed");
     }
   };
 
   const handleDelete = async () => {
-    const { bathroomTypeId } = deleteData;
+    const { spaceId } = deleteData;
 
-    const response = await DeleteBathroomType(bathroomTypeId);
+    const response = await DeleteSpace(spaceId);
 
     if (response) {
-      toast.success("Bathroom Type Deleted Successfully");
+      toast.success("space Deleted Successfully");
       setModal_static(false);
-      fetchBathroomTypes();
-      navigate("/bathroom-type");
+      fetchSpaces();
+      navigate("/space");
     } else {
-      toast.error("Bathroom Type Deletion Failed");
+      toast.error("space Deletion Failed");
     }
   };
 
@@ -130,24 +122,24 @@ const BathroomType = () => {
     []
   );
 
-  const handleEditClick = (bathroomType) => {
+  const handleEditClick = (space) => {
     setUpdateData({
-      bathroomTypeId: bathroomType._id,
-      itemName: bathroomType.itemName,
-      isChecked: bathroomType.status,
+      spaceId: space._id,
+      itemName: space.itemName,
+      isChecked: space.status,
     });
     tog_standard(); // Open the modal
   };
 
-  const handleDeleteClick = (bathroomType) => {
+  const handleDeleteClick = (space) => {
     setDeleteData({
-      bathroomTypeId: bathroomType._id,
+      spaceId: space._id,
     });
     tog_static(); // Open the modal
   };
   const breadcrumbItems = [
     { title: "Dashboard", link: "/" },
-    { title: "Bathroom Type", link: "#" },
+    { title: "space", link: "#" },
   ];
 
   return (
@@ -168,14 +160,14 @@ const BathroomType = () => {
                 <Button
                   color="success"
                   className="waves-effect waves-light me-1"
-                  onClick={() => navigate("/bathroom-type/add")}
+                  onClick={() => navigate("/space/add")}
                 >
-                  Add Bathroom type
+                  Add space
                 </Button>
               </div>
               <TableContainer
                 columns={columns || []}
-                data={BathroomTypes || []}
+                data={spaces || []}
                 isPagination={false}
                 // isGlobalFilter={false}
                 iscustomPageSize={false}
@@ -195,7 +187,7 @@ const BathroomType = () => {
                 <div className="mb-3">
                   <AvField
                     name="itemName"
-                    label="Bathroom Type Name"
+                    label="space Name"
                     placeholder="Type Something"
                     type="text"
                     errorMessage="Enter Name"
@@ -267,7 +259,7 @@ const BathroomType = () => {
               Static Backdrop
             </ModalHeader>
             <ModalBody>
-              <p>Are you sure you want to delete this Bathroom type?</p>
+              <p>Are you sure you want to delete this space?</p>
               <ModalFooter>
                 <Button type="button" color="light" onClick={tog_static}>
                   Close
@@ -286,4 +278,4 @@ const BathroomType = () => {
   );
 };
 
-export default BathroomType;
+export default Space;
