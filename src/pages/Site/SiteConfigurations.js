@@ -27,7 +27,7 @@ import {
   UpdateSiteSetting,
 } from "../../apis/SiteSettings";
 
-const SiteSettings = () => {
+const SiteConfigurations = () => {
   const [siteSettings, setSiteSettings] = useState([]);
   const [updateData, setUpdateData] = useState({
     siteSettingId: "",
@@ -48,7 +48,7 @@ const SiteSettings = () => {
   const fetchSiteSettings = async () => {
     const response = await FetchSiteSettings();
     const filteredSettings = response.siteSettings.filter(
-      (setting) => setting.type === "site_settings"
+      (setting) => setting.type === "site_configs"
     );
     setSiteSettings(filteredSettings);
   };
@@ -304,4 +304,4 @@ const SiteSettings = () => {
   );
 };
 
-export default SiteSettings;
+export default SiteConfigurations;

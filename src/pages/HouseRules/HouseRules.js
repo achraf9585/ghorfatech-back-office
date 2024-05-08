@@ -22,21 +22,21 @@ import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import { AvField, AvForm } from "availity-reactstrap-validation";
 import {
-  DeleteSiteSetting,
-  FetchSiteSettings,
-  UpdateSiteSetting,
-} from "../../apis/SiteSettings";
+  DeleteHouseRules,
+  FetchHouseRules,
+  UpdateHouseRules,
+} from "../../apis/HouseRules";
 
-const SiteSettings = () => {
-  const [siteSettings, setSiteSettings] = useState([]);
+const HouseRules = () => {
+  const [houseRules, setHouseRules] = useState([]);
   const [updateData, setUpdateData] = useState({
-    siteSettingId: "",
-    title: "",
-    name: "",
-    value: "",
+    propertyRulesId: "",
+    itemName: "",
+
+    isChecked: true,
   });
   const [deleteData, setDeleteData] = useState({
-    siteSettingId: "",
+    propertyRulesId: "",
   });
   const [modal_standard, setModal_standard] = useState(false);
   const [modal_static, setModal_static] = useState(false);
@@ -45,67 +45,59 @@ const SiteSettings = () => {
   const tog_static = () => setModal_static(!modal_static);
   const navigate = useNavigate();
 
-  const fetchSiteSettings = async () => {
-    const response = await FetchSiteSettings();
-    const filteredSettings = response.siteSettings.filter(
-      (setting) => setting.type === "site_settings"
-    );
-    setSiteSettings(filteredSettings);
+  const fetchHouseRules = async () => {
+    const response = await FetchHouseRules();
+    setHouseRules(response.safeties);
   };
   useEffect(() => {
-    fetchSiteSettings();
+    fetchHouseRules();
   }, []);
 
   const handleUpdate = async () => {
-    const { siteSettingId, title, name, value } = updateData;
-    const updatedSiteSetting = await UpdateSiteSetting(
-      siteSettingId,
-      title,
-      name,
-      value
+    const { propertyRulesId, itemName, isChecked } = updateData;
+    const updatedHouseRules = await UpdateHouseRules(
+      propertyRulesId,
+      itemName,
+      isChecked
     );
-    if (updatedSiteSetting) {
-      toast.success("Site setting Updated Successfully");
-      navigate("/site-settings");
+    if (UpdateHouseRules) {
+      toast.success("House Rule Updated Successfully");
+      navigate("/house-rule");
       setModal_standard(false);
-      fetchSiteSettings();
-      navigate("/site-settings");
+      fetchHouseRules();
+      navigate("/house-rules");
     } else {
-      toast.error("site setting Update Failed");
+      toast.error("House Rules Update Failed");
     }
   };
 
   const handleDelete = async () => {
-    const { siteSettingId } = deleteData;
+    const { propertyRulesId } = deleteData;
 
-    const response = await DeleteSiteSetting(siteSettingId);
+    const response = await DeleteHouseRules(propertyRulesId);
 
     if (response) {
-      toast.success("site setting Deleted Successfully");
+      toast.success("House Rules Deleted Successfully");
       setModal_static(false);
-      fetchSiteSettings();
-      navigate("/safety");
+      fetchHouseRules();
+      navigate("/essential");
     } else {
-      toast.error("House Type Deletion Failed");
+      toast.error("House Rules Deletion Failed");
     }
   };
 
   const columns = useMemo(
     () => [
       {
-        Header: "Title",
-        accessor: "title",
-      },
-      {
-        Header: " Name",
-        accessor: "name",
+        Header: "Item Name",
+        accessor: "itemName",
       },
 
       {
-        Header: " Value",
-        accessor: "value",
+        Header: "Status",
+        accessor: "status",
+        Cell: ({ value }) => (value ? "Active" : "Inactive"),
       },
-
       {
         Header: "Created At",
         accessor: "createdAt",
@@ -138,26 +130,24 @@ const SiteSettings = () => {
     []
   );
 
-  const handleEditClick = (siteSetting) => {
+  const handleEditClick = (houseRules) => {
     setUpdateData({
-      siteSettingId: siteSetting._id,
-      title: siteSetting.title,
-      name: siteSetting.name,
-      value: siteSetting.value,
+      propertyRulesId: houseRules._id,
+      itemName: houseRules.itemName,
+      isChecked: houseRules.status,
     });
     tog_standard(); // Open the modal
   };
 
-  const handleDeleteClick = (siteSetting) => {
+  const handleDeleteClick = (houseRules) => {
     setDeleteData({
-      siteSettingId: siteSetting._id,
+      propertyRulesId: houseRules._id,
     });
     tog_static(); // Open the modal
   };
-
   const breadcrumbItems = [
     { title: "Dashboard", link: "/" },
-    { title: "Site settings", link: "#" },
+    { title: "House Rules", link: "#" },
   ];
 
   return (
@@ -166,7 +156,7 @@ const SiteSettings = () => {
       <div className="page-content">
         <Container>
           <Breadcrumbs title="DATA TABLES" breadcrumbItems={breadcrumbItems} />
-          <Card style={{ marginLeft: "150px" }}>
+          <Card>
             <CardBody>
               <div
                 style={{
@@ -178,14 +168,14 @@ const SiteSettings = () => {
                 <Button
                   color="success"
                   className="waves-effect waves-light me-1"
-                  onClick={() => navigate("/site-settings/add")}
+                  onClick={() => navigate("/house-rules/add")}
                 >
-                  Add Site Setting
+                  Add House Rules
                 </Button>
               </div>
               <TableContainer
                 columns={columns || []}
-                data={siteSettings || []}
+                data={houseRules || []}
                 isPagination={false}
                 // isGlobalFilter={false}
                 iscustomPageSize={false}
@@ -204,56 +194,48 @@ const SiteSettings = () => {
               <AvForm onValidSubmit={handleUpdate}>
                 <div className="mb-3">
                   <AvField
-                    name="title"
-                    label="Site setting Name"
+                    name="itemName"
+                    label="House Rule Name"
                     placeholder="Type Something"
                     type="text"
                     errorMessage="Enter Name"
-                    value={updateData.title}
+                    value={updateData.itemName}
                     validate={{ required: { value: true } }}
                     onChange={(e) =>
                       setUpdateData({
                         ...updateData,
-                        title: e.target.value,
+                        itemName: e.target.value,
                       })
                     }
                   />
                 </div>
 
-                <div className="mb-3">
-                  <AvField
-                    name="name"
-                    label="Site setting Name"
-                    placeholder="Type Something"
-                    type="text"
-                    errorMessage="Enter Name"
-                    value={updateData.name}
-                    validate={{ required: { value: true } }}
-                    onChange={(e) =>
-                      setUpdateData({
-                        ...updateData,
-                        name: e.target.value,
-                      })
-                    }
-                  />
-                </div>
+                <div className="form-check form-switch mb-3" dir="ltr">
+                  <h4 className="card-title">Status</h4>
 
-                <div className="mb-3">
-                  <AvField
-                    name="value"
-                    label="Site setting Name"
-                    placeholder="Type Something"
-                    type="text"
-                    errorMessage="Enter value"
-                    value={updateData.name}
-                    validate={{ required: { value: true } }}
-                    onChange={(e) =>
+                  <Input
+                    type="checkbox"
+                    className="form-check-input"
+                    checked={updateData.isChecked}
+                    onChange={() =>
                       setUpdateData({
                         ...updateData,
-                        value: e.target.value,
+                        isChecked: !updateData.isChecked,
                       })
                     }
+                    id="customSwitch1"
+                    defaultChecked
                   />
+
+                  <Label
+                    className="form-check-label"
+                    htmlFor="customSwitch1"
+                    onClick={(e) => {
+                      this.setState({ toggleSwitch: !this.state.toggleSwitch });
+                    }}
+                  >
+                    {updateData.isChecked ? "Active" : "Inactive"}
+                  </Label>
                 </div>
               </AvForm>
             </ModalBody>
@@ -285,7 +267,7 @@ const SiteSettings = () => {
               Static Backdrop
             </ModalHeader>
             <ModalBody>
-              <p>Are you sure you want to delete this space?</p>
+              <p>Are you sure you want to delete this House RUle?</p>
               <ModalFooter>
                 <Button type="button" color="light" onClick={tog_static}>
                   Close
@@ -304,4 +286,4 @@ const SiteSettings = () => {
   );
 };
 
-export default SiteSettings;
+export default HouseRules;

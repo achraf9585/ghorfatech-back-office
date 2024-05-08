@@ -118,6 +118,11 @@ import Space from "../pages/Space/Space";
 import AddSpace from "../pages/Space/AddSpace";
 import User from "../pages/User/User";
 import SiteSettings from "../pages/Site/SiteSettings";
+import SiteConfigurations from "../pages/Site/SiteConfigurations";
+import Essential from "../pages/Essential/Essential";
+import AddEssential from "../pages/Essential/AddEssential";
+import HouseRules from "../pages/HouseRules/HouseRules";
+import AddHouseRules from "../pages/HouseRules/AddEssential";
 
 const authProtectedRoutes = [
   // Tables
@@ -256,6 +261,16 @@ const publicRoutes = [
 
   // site
   { path: "/site-settings", component: <SiteSettings /> },
+  // site configuaration
+  { path: "/site-configurations", component: <SiteConfigurations /> },
+
+  // essential amneties
+  { path: "/essential", component: <Essential /> },
+  { path: "/essential/add", component: <AddEssential /> },
+
+  // house Rule
+  { path: "/house-rules", component: <HouseRules /> },
+  { path: "/house-rules/add", component: <AddHouseRules /> },
 
   { path: "/login", component: <Login /> },
   { path: "/forgot-password", component: <ForgetPwd /> },
